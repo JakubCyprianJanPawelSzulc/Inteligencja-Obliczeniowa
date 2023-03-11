@@ -23,14 +23,14 @@ gene_space = [0,1,2,3,4]
 # 3-lewo
 # 4-prawo
 
-chromosome_length = 30
-population_size = 200
-parent_selection_type = "sss"
-parent_selection_number = 100
-mutation_percent_genes = 8
 num_genes = 30
-sol_per_pop = 100
+
+parent_selection_number = 10
+number_generations = 10000
 keep_parents = 4
+parent_selection_type = "sss"
+mutation_percent_genes = 8
+sol_per_pop = 100
 
 def fitness_func(solution, solution_idx):
     x = 1
@@ -44,28 +44,24 @@ def fitness_func(solution, solution_idx):
         if gene == 1:
             if plansza[y-1][x] == 0:
                 wallHits += 1
-                break
             else:
                 y -= 1
                 steps += 1
         elif gene == 2:
             if plansza[y+1][x] == 0:
                 wallHits += 1
-                break
             else:
                 y += 1
                 steps += 1
         elif gene == 3:
             if plansza[y][x-1] == 0:
                 wallHits += 1
-                break
             else:
                 x -= 1
                 steps += 1
         elif gene == 4:
             if plansza[y][x+1] == 0:
                 wallHits += 1
-                break
             else:
                 x += 1
                 steps += 1
@@ -75,16 +71,14 @@ def fitness_func(solution, solution_idx):
     final_x_distance = abs(x - endCoords[0])
     final_y_distance = abs(y - endCoords[1])
     final_distance_to_end = final_x_distance + final_y_distance
-    fitness = steps - final_distance_to_end - wallHits
-    if final_distance_to_end == 0:
-        fitness += 50
+    fitness = 1000/(steps + 1 + wallHits + final_distance_to_end*50)
 
     return fitness
     
 fitness_function = fitness_func
 
 ga_instance = pygad.GA(gene_space=gene_space,
-                          num_generations=5000,
+                          num_generations=number_generations,
                             num_parents_mating=parent_selection_number,
                             fitness_func=fitness_function,
                             sol_per_pop=sol_per_pop,
