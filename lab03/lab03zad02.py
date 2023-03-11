@@ -1,7 +1,8 @@
 import time
 import numpy as np
 import pygad
-import math
+from csv import writer
+from csv import reader
 
 plansza = [[0,0,0,0,0,0,0,0,0,0,0,0],
            [0,2,1,1,0,1,1,1,0,1,1,0],
@@ -31,6 +32,7 @@ keep_parents = 4
 parent_selection_type = "sss"
 mutation_percent_genes = 8
 sol_per_pop = 100
+stop_criteria = "reach_47.61904761904762"
 
 def fitness_func(solution, solution_idx):
     x = 1
@@ -77,6 +79,7 @@ def fitness_func(solution, solution_idx):
     
 fitness_function = fitness_func
 
+start=time.time()
 ga_instance = pygad.GA(gene_space=gene_space,
                           num_generations=number_generations,
                             num_parents_mating=parent_selection_number,
@@ -85,11 +88,27 @@ ga_instance = pygad.GA(gene_space=gene_space,
                             num_genes=num_genes,
                             parent_selection_type=parent_selection_type,
                             keep_parents=keep_parents,
-                            mutation_percent_genes=mutation_percent_genes)
-
-
-
+                            mutation_percent_genes=mutation_percent_genes,
+                            stop_criteria=stop_criteria)
 ga_instance.run()
+end=time.time()
+print('der Zeit: ',end-start)
+with open('zeit.csv', 'a', newline='') as f_object:
+    writer_object = writer(f_object)
+    writer_object.writerow([end-start])
+    f_object.close()
+
+
+with open('zeit.csv', 'r') as read_obj:
+    csv_reader = reader(read_obj)
+    list_of_rows = list(csv_reader)
+    sumTime = 0
+    for row in list_of_rows:
+        sumTime += float(row[0])
+    print('średni czas dla',len(list_of_rows), 'prób: ',sumTime/len(list_of_rows))
+    read_obj.close()
+
+
 best_solution, best_solution_fitness, best_match_idx = ga_instance.best_solution()
 print("Najlepsze rozwiązanie:")
 print(best_solution)
