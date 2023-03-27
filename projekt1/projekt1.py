@@ -3,17 +3,22 @@ import numpy as np
 
 weights = np.array([2, 4, 6, 8, 10, 12, 14, 16, 18, 10])
 
-def fitness_func(solution, solution_idx):
-    capacity = 10
-    bins = np.zeros(len(weights))
-    bin_idx = 0
-    for i in range(len(weights)):
-        if bins[bin_idx] + weights[i] <= capacity:
-            bins[bin_idx] += weights[i]
-        else:
-            bin_idx += 1
-            bins[bin_idx] += weights[i]
-    return -1*(bin_idx+1)
+
+
+def fitness(solution, solution_idx):
+    num_bins = len(solution) // capacity
+    bins = [0] * num_bins
+
+    for i in range(len(solution)):
+        bin_index = i % num_bins
+        if solution[i] == 1:
+            if bins[bin_index] + items[i] <= capacity:
+                bins[bin_index] += items[i]
+            else:
+                num_bins += 1
+                bins.append(items[i])
+
+    return num_bins
 
 num_generations = 100
 num_parents_mating = 25
