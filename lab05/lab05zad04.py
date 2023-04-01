@@ -52,7 +52,6 @@ y_pred_nb = nb.predict(X_test)
 acc_nb = accuracy_score(y_test, y_pred_nb)
 cm_nb = confusion_matrix(y_test, y_pred_nb)
 
-# Wyświetlenie wyników
 print(f"Dokładność dla DD: {acc_dd*100:.2f}%")
 print(f"Macierz błędów dla DD:\n{cm_dd}\n")
 
