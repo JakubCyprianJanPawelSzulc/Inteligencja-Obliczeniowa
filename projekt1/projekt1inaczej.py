@@ -4,14 +4,14 @@ import time
 from csv import writer
 import random
 
-items1 = np.array([1,2,3,4,5])
-items2 = np.array([1,1,1,5,5])
-items3 = np.array([2,8,1,6,3])
+# items1 = np.array([1,2,3,4,5])
+# items2 = np.array([1,1,1,5,5])
+# items3 = np.array([2,8,1,6,3])
 
 
-# items1 = np.array([1,9,2,8,3,7,4,6,5,5,4,6])
-# items2 = np.array([10,10,10,10,10,1,1,1,1,1,2,2])
-# items3 = np.array([8,2,9,1,7,3,6,4,5,5,4,6])
+items1 = np.array([1,9,2,8,3,7,4,6,5,5,4,6])
+items2 = np.array([10,10,10,10,10,1,1,1,1,1,2,2])
+items3 = np.array([8,2,9,1,7,3,6,4,5,5,4,6])
 
 # items1 = np.array([1,2,3,4,5,6,7,8,9,10,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,10,10,5,4,1])
 # items2 = np.array([10,10,10,10,10,10,10,10,10,10,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,10,10,5,4,1])
@@ -23,10 +23,11 @@ capacity = 10
 
 gene_space = [0,1]
 num_genes=items1.size*items1.size
-num_generations = 1000
+num_generations = 20000
 num_parents_mating = 100
-sol_per_pop = 200
+sol_per_pop = 300
 mutation_percent_genes = 10
+keep_parents = 15
 
 
 def fitness_function(solution, solution_idx):
@@ -67,21 +68,22 @@ for i in range (100):
                         num_genes=num_genes,
                         mutation_percent_genes=mutation_percent_genes,
                         gene_space=gene_space,
-                        
+                        parent_selection_type="sss",
+                        keep_parents=keep_parents,
     )
 
     ga_instance.run()
     end=time.time()
 
     solution, solution_fitness, solution_idx = ga_instance.best_solution()
-    if solution_fitness*-1 <= 2:
-        with open('zeit1inaczej.csv', 'a', newline='') as f_object:
+    if solution_fitness*-1 <= 6:
+        with open('zeit2inaczej.csv', 'a', newline='') as f_object:
             writer_object = writer(f_object)
             writer_object.writerow([end-start, solution_fitness*-1])
             f_object.close()
         print("Najlepsze rozwiązanie: ", solution_fitness*-1)
     else:
-        with open('zeit1inaczej.csv', 'a', newline='') as f_object:
+        with open('zeit2inaczej.csv', 'a', newline='') as f_object:
             writer_object = writer(f_object)
             writer_object.writerow([0, solution_fitness*-1])
             f_object.close()
