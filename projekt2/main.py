@@ -18,12 +18,6 @@ y = df.iloc[:, -1].values
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=2137)
 
-# label_encoder = LabelEncoder()
-# X_train[:, 1] = label_encoder.fit_transform(X_train[:, 1])
-# X_test[:, 1] = label_encoder.transform(X_test[:, 1])
-
-#encode y value
-
 label_encoder = LabelEncoder()
 y_all = label_encoder.fit_transform(np.concatenate([y_train, y_test]))
 y_train = y_all[:len(y_train)]
