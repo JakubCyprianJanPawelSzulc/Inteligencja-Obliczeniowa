@@ -8,7 +8,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.discriminant_analysis import StandardScaler
 from sklearn.preprocessing import LabelEncoder, MinMaxScaler
-
+import matplotlib.pyplot as plt
 
 df = pd.read_csv("crimedatapreprocessed1.csv")
 
