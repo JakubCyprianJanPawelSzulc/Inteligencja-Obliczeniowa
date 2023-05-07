@@ -10,7 +10,7 @@ from sklearn.discriminant_analysis import StandardScaler
 from sklearn.preprocessing import LabelEncoder, MinMaxScaler
 
 
-df = pd.read_csv("crimedatapreprocessed1.csv")
+df = pd.read_csv("crimedatapreprocessed2.csv")
 
 
 X = df.iloc[:, :-1].values
