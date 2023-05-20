@@ -1,0 +1,8 @@
+Total Tokens:  38030
+Unique Tokens (Token Vocab):  3236
+Total Patterns:  37930
+Seed:
+" and , as the lory positively refused to tell its age , there was no more to be said . at last the mouse , who seemed to be a person of authority among them , called out , “ sit down , all of you , and listen to me ! _i ’ ll_ soon make you dry enough !” they all sat down at once , in a large ring , with the mouse in the middle . alice kept her eyes anxiously fixed on it , for she felt sure she would catch a bad cold if "
+Generated text:
+the to to to to , “ the , “ the , “ the , , the the , “ the , “ the , said the , “ the , “ the , “ the , “ the , “ the , “ the , “ the , “ the , “ the , “ the , “ the , “ the , “ the , “ the , “ the , “ the , “ the , “ the , “ the , “ the , “ the , “ the , “ the , “ the ,      
+Done.
