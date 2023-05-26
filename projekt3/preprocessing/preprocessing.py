@@ -9,6 +9,7 @@ def preprocessTweet(tweet):
     tweet = re.sub(r'https?://\S+', '', tweet)
     tweet = tweet.lower()
     words = tweet.split()
+    words = [re.sub(r'&amp;', '', word) for word in words]
     words = [re.sub(r'(?<=\w)[^\s\w](?![^\s\w])', '', word) for word in words]
     words = [re.sub(r'[|«»“”‘’,"–—…-]', '', word) for word in words]
     words = [re.sub(r'\([^)]*\)', '', word) for word in words]
@@ -42,5 +43,9 @@ def preprocessFile(filename):
     preprocessedTweets = [preprocessTweet(tweet) for tweet in tweets]
     return preprocessedTweets
 
-saveToFile("preprocessedIsrael.txt", preprocessFile("../download/tweetsIsrael.txt"))
-saveToFile("preprocessedPalestine.txt", preprocessFile("../download/tweetsPalestine.txt"))
+def main():
+    saveToFile("preprocessedIsrael.txt", preprocessFile("../download/tweetsIsrael.txt"))
+    saveToFile("preprocessedPalestine.txt", preprocessFile("../download/tweetsPalestine.txt"))
+
+if __name__ == '__main__':
+    main()

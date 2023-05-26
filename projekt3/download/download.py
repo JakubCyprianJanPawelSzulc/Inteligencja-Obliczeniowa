@@ -46,5 +46,9 @@ def generateDaysToProcess(maxTotalTweets, tweetsPerDay):
         daysToProcess.append((datetime.now() - timedelta(days=i)).date())
     return daysToProcess
 
-saveTweets("tweetsIsrael.txt", downloadTweets(maxTotalTweets, tweetsPerDay, hashtag, lang))
-saveTweets("tweetsPalestine.txt", downloadTweets(maxTotalTweets, tweetsPerDay, hashtag2, lang))
+def main():
+    saveTweets("tweetsIsrael.txt", downloadTweets(maxTotalTweets, tweetsPerDay, hashtag, lang))
+    saveTweets("tweetsPalestine.txt", downloadTweets(maxTotalTweets, tweetsPerDay, hashtag2, lang))
+
+if __name__ == '__main__':
+    main()
