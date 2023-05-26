@@ -4,6 +4,7 @@ from text2emotion import get_emotion
 def analyzeSentiment(text):
     sid = SentimentIntensityAnalyzer()
     sentimentScores = sid.polarity_scores(text)
+
     return sentimentScores
 
 def getFile(filename):
@@ -17,29 +18,27 @@ def analyzeEmotions(text):
 
 def analyzeFile(filename):
     tweets = getFile(filename)
-    sentimentScores = [analyzeSentiment(tweet) for tweet in tweets]
-    emotions = [analyzeEmotions(tweet) for tweet in tweets]
-    return sentimentScores, emotions
+    sentimentScores = []
+    emotions = []
+    text = []
+    for tweet in tweets:
+        if tweet == '\n':
+            continue
+        if tweet[-1]=='\n':
+            tweet = tweet[:-1]
+        sentimentScores.append(analyzeSentiment(tweet))
+        emotions.append(analyzeEmotions(tweet))
+        text.append(tweet)
 
-sentimentScores1, emotions1 = analyzeFile("../preprocessing/preprocessedIsrael.txt")
-sentimentScores2, emotions2 = analyzeFile("../preprocessing/preprocessedPalestine.txt")
+    return sentimentScores, emotions, text
 
-print("Izrael:")
-print("Pozytywność:", sum([score['pos'] for score in sentimentScores1]) / len(sentimentScores1))
-print("Negatywność:", sum([score['neg'] for score in sentimentScores1]) / len(sentimentScores1))
-print("Neutralność:", sum([score['neu'] for score in sentimentScores1]) / len(sentimentScores1))
-print("Wynik zagregowany (compound):", sum([score['compound'] for score in sentimentScores1]) / len(sentimentScores1))
+sentimentScores1, emotions1, text1 = analyzeFile("../preprocessing/preprocessedIsrael.txt")
+with open("sentimentScoresIsrael.txt", "w", encoding="utf-8") as file:
+    for i in range(len(text1)):
+        file.write(str(text1[i])+", "+str(sentimentScores1[i])+", "+str(emotions1[i])+";"+'\n')
 
-print("Palestyna:")
-print("Pozytywność:", sum([score['pos'] for score in sentimentScores2]) / len(sentimentScores2))
-print("Negatywność:", sum([score['neg'] for score in sentimentScores2]) / len(sentimentScores2))
-print("Neutralność:", sum([score['neu'] for score in sentimentScores2]) / len(sentimentScores2))
-print("Wynik zagregowany (compound):", sum([score['compound'] for score in sentimentScores2]) / len(sentimentScores2))
 
-print("Izrael:")
-for emotion, value in sum(emotions1).items():
-    print(emotion.capitalize(), ":", value)
-
-print("Palestyna:")
-for emotion, value in sum(emotions2).items():
-    print(emotion.capitalize(), ":", value)
+sentimentScores2, emotions2, text2 = analyzeFile("../preprocessing/preprocessedPalestine.txt")
+with open("sentimentScoresPalestine.txt", "w", encoding="utf-8") as file:
+    for i in range(len(text2)):
+        file.write(str(text2[i])+", "+str(sentimentScores2[i])+", "+str(emotions2[i])+";"+'\n')
