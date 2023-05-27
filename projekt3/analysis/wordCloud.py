@@ -23,6 +23,9 @@ def main():
     # nltk.download('punkt')
     generateWordCloud(getData('../preprocessing/preprocessedIsrael.txt'))
     generateWordCloud(getData('../preprocessing/preprocessedPalestine.txt'))
-
+    generateWordCloud(getData('positiveTweetsIsrael.txt'))
+    generateWordCloud(getData('negativeTweetsIsrael.txt'))
+    generateWordCloud(getData('positiveTweetsPalestine.txt'))
+    generateWordCloud(getData('negativeTweetsPalestine.txt'))
 if __name__ == '__main__':
     main()
