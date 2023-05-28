@@ -32,13 +32,17 @@ def analyzeFile(filename):
 
     return sentimentScores, emotions, text
 
-sentimentScores1, emotions1, text1 = analyzeFile("../preprocessing/preprocessedIsrael.txt")
-with open("sentimentScoresIsrael.txt", "w", encoding="utf-8") as file:
-    for i in range(len(text1)):
-        file.write(str(text1[i])+", "+str(sentimentScores1[i])+", "+str(emotions1[i])+";"+'\n')
+def main():
+    sentimentScores1, emotions1, text1 = analyzeFile("../preprocessing/preprocessedIsrael.txt")
+    with open("sentimentScoresIsrael.txt", "w", encoding="utf-8") as file:
+        for i in range(len(text1)):
+            file.write(str(text1[i])+", "+str(sentimentScores1[i])+", "+str(emotions1[i])+";"+'\n')
 
 
-sentimentScores2, emotions2, text2 = analyzeFile("../preprocessing/preprocessedPalestine.txt")
-with open("sentimentScoresPalestine.txt", "w", encoding="utf-8") as file:
-    for i in range(len(text2)):
-        file.write(str(text2[i])+", "+str(sentimentScores2[i])+", "+str(emotions2[i])+";"+'\n')
+    sentimentScores2, emotions2, text2 = analyzeFile("../preprocessing/preprocessedPalestine.txt")
+    with open("sentimentScoresPalestine.txt", "w", encoding="utf-8") as file:
+        for i in range(len(text2)):
+            file.write(str(text2[i])+", "+str(sentimentScores2[i])+", "+str(emotions2[i])+";"+'\n')
+
+if __name__ == "__main__":
+    main()
