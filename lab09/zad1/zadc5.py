@@ -1,4 +1,4 @@
-import gymnasium as gym
+import gym
 
 # Action Space: Discrete
 # Observation Space: Image

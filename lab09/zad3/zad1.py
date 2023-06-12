@@ -18,15 +18,11 @@ tip['low'] = fuzz.trimf(tip.universe, [0, 0, 13])
 tip['medium'] = fuzz.trimf(tip.universe, [0, 13, 25])
 tip['high'] = fuzz.trimf(tip.universe, [13, 25, 25])
 
-# You can see how these look with .view()
 quality['average'].view()
-
 
 service.view()
 
-
 tip.view()
-
 
 rule1 = ctrl.Rule(quality['poor'] | service['poor'], tip['low'])
 rule2 = ctrl.Rule(service['average'], tip['medium'])
@@ -34,20 +30,5 @@ rule3 = ctrl.Rule(service['good'] | quality['good'], tip['high'])
 
 rule1.view()
 
-
-tipping_ctrl = ctrl.ControlSystem([rule1, rule2, rule3])
-
-tipping = ctrl.ControlSystemSimulation(tipping_ctrl)
-
-
-# Pass inputs to the ControlSystem using Antecedent labels with Pythonic API
-# Note: if you like passing many inputs all at once, use .inputs(dict_of_data)
-tipping.input['quality'] = 6.5
-tipping.input['service'] = 9.8
-
-# Crunch the numbers
-tipping.compute()
-
-
-print(tipping.output['tip'])
-tip.view(sim=tipping)
+import matplotlib.pyplot as plt
+plt.show()

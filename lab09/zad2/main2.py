@@ -1,12 +1,12 @@
 import gymnasium as gym
 import numpy
 import pygad
-from test2 import run_solution
+from bestSolution2 import run_solution
 
 env = gym.make('FrozenLake-v1', desc=None, map_name="8x8", is_slippery=False)
 
 
-observation, info = env.reset(seed=42)
+observation, info = env.reset(seed=2137)
 
 
 def run_solution(solution):
@@ -15,12 +15,9 @@ def run_solution(solution):
         observation, reward, terminated, truncated, info = env.step(int(step))
         if terminated or truncated:
             break
-    env.reset(seed=42)
+    env.reset(seed=2137)
     return reward
 
-# --------------
-
-# przeprowadza symulacje - zwraca nagrode
 def fitness_func(ga_instance, solution, solution_idx):
     return run_solution(solution)
 
@@ -46,7 +43,7 @@ ga_instance = pygad.GA(num_generations=num_generations,
                        fitness_func=fitness_function,
                        sol_per_pop=sol_per_pop,
                        num_genes=num_genes,
-                       gene_space=[0,1,2,3], #actions available
+                       gene_space=[0,1,2,3],
                        parent_selection_type=parent_selection_type,
                        keep_parents=keep_parents,
                        crossover_type=crossover_type,
@@ -59,8 +56,4 @@ solution, solution_fitness, solution_idx = ga_instance.best_solution()
 print("Parameters of the best solution : {solution}".format(solution=solution))
 print("Fitness value of the best solution = {solution_fitness}".format(solution_fitness=solution_fitness))
 
-# prediction = numpy.sum(numpy.array(function_inputs)*solution)
-# print("Predicted output based on the best solution : {prediction}".format(prediction=prediction))
-
-# ------------------
 env.close()

@@ -1,7 +1,7 @@
 import gymnasium as gym
 import numpy as np
 
-# Value Iteration Algorithm
+#value Iteration
 
 def value_iteration(env, gamma=0.9, theta=1e-6):
     V = np.zeros(env.observation_space.n)
