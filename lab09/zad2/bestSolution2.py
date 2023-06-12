@@ -1,7 +1,7 @@
 import gymnasium as gym
 
 env = gym.make('FrozenLake-v1', desc=None, map_name="8x8", is_slippery=False, render_mode="human")
-observation, info = env.reset(seed=42)
+observation, info = env.reset(seed=2137)
 
 
 def run_solution(solution):
@@ -10,7 +10,7 @@ def run_solution(solution):
         observation, reward, terminated, truncated, info = env.step(int(step))
         if terminated or truncated:
             break
-    env.reset(seed=42)
+    env.reset(seed=2137)
     return reward
 
 

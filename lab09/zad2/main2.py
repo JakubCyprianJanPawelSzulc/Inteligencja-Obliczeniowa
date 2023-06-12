@@ -21,6 +21,10 @@ def run_solution(solution):
 def fitness_func(ga_instance, solution, solution_idx):
     return run_solution(solution)
 
+# solution jest przekazywane do funkcji run_solution
+# symuluje rozgrywkę wykonując akcje zgodnie z wartościami w wektorze solution
+# funkcja run_solution zwraca nagrodę uzyskaną w trakcie rozgrywki.
+
 
 fitness_function = fitness_func
 

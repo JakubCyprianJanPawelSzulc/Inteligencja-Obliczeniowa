@@ -1,16 +1,11 @@
-import gymnasium as gym
-import numpy
 import pygad
-from bestSolution1 import run_solution
+import numpy as np
+import gym
 
 env = gym.make("LunarLander-v2")
+obervation, info = env.reset(seed=2137)
 
-
-observation, info = env.reset(seed=2137)
-
-
-def run_solution(solution):
-    reward = 0
+def fitness_func(solution, solution_idx):
     for step in solution:
         observation, reward, terminated, truncated, info = env.step(int(step))
         if terminated or truncated:
@@ -18,16 +13,11 @@ def run_solution(solution):
     env.reset(seed=2137)
     return reward
 
-def fitness_func(solution, solution_idx):
-    return run_solution(solution)
 
+num_generations = 50
+num_parents_mating = 10
 
-fitness_function = fitness_func
-
-num_generations = 60
-num_parents_mating = 15
-
-sol_per_pop = 70
+sol_per_pop = 60
 num_genes = 100
 
 parent_selection_type = "sss"
@@ -40,7 +30,7 @@ mutation_percent_genes = 10
 
 ga_instance = pygad.GA(num_generations=num_generations,
                        num_parents_mating=num_parents_mating,
-                       fitness_func=fitness_function,
+                       fitness_func=fitness_func,
                        sol_per_pop=sol_per_pop,
                        num_genes=num_genes,
                        gene_space=[0,1,2,3],
@@ -50,10 +40,9 @@ ga_instance = pygad.GA(num_generations=num_generations,
                        mutation_type=mutation_type,
                        mutation_percent_genes=mutation_percent_genes)
 
+
 ga_instance.run()
 
 solution, solution_fitness, solution_idx = ga_instance.best_solution()
-print("Parametry najlepszego rozwiązania : {solution}".format(solution=solution))
-print("Fitness = {solution_fitness}".format(solution_fitness=solution_fitness))
-
-env.close()
+print("Najlepsze rozwiązanie: {solution}".format(solution=solution))
+print("Wynik fitness dla najlepszego rozwiązania: {solution_fitness}".format(solution_fitness=solution_fitness))
